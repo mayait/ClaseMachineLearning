@@ -1,0 +1,1112 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Regresión lineal &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=4ec06e9971c5264fbd345897d5258098f11cc577" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=8bf782fb4ee92b3d3646425e50f299c4e1fd152d"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'SupervisedLearning/Classification/LinearRegressionAI';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../../intro.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/logo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../markdown.html">
+                        Markdown Files
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebooks.html">
+                        Content with notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../markdown-notebooks.html">
+                        Notebooks with MyST Markdown
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="Ejercicio_TelecomChurn.html">
+                        Supervised Learning
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="DecisionTreeTrainingTest.html">
+                        Árbol de decisión
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../markdown.html">
+                        Markdown Files
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebooks.html">
+                        Content with notebooks
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../markdown-notebooks.html">
+                        Notebooks with MyST Markdown
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="Ejercicio_TelecomChurn.html">
+                        Supervised Learning
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="DecisionTreeTrainingTest.html">
+                        Árbol de decisión
+                      </a>
+                    </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item">
+  
+
+
+<a class="navbar-brand logo" href="../../intro.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../../_static/logo.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    </div>
+    <div class="sidebar-start-items__item">
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Bienvenido a tu clase de Machine Learning Aplicado
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../markdown.html">Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ejercicio_TelecomChurn.html">Supervised Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DecisionTreeTrainingTest.html">Árbol de decisión</a></li>
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        <label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" data-toggle="tooltip" data-placement="right" title="Toggle primary sidebar">
+            <span class="fa-solid fa-bars"></span>
+        </label>
+    </div>
+    <div class="header-article__right">
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+  </ul>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="dropdown dropdown-repository-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm dropdown-item"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">repository</span>
+</a>
+</a>
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FSupervisedLearning/Classification/LinearRegressionAI.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm dropdown-item"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">open issue</span>
+</a>
+</a>
+      
+  </ul>
+</div>
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      <li><a href="../../_sources/SupervisedLearning/Classification/LinearRegressionAI.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</a>
+      
+      <li>
+<button onclick="printPdf(this)"
+  class="btn btn-sm dropdown-item"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</a>
+      
+  </ul>
+</div>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary" data-toggle="tooltip" data-placement="left" title="Toggle secondary sidebar">
+            <span class="fa-solid fa-list"></span>
+        </label>
+    </div>
+</div>
+            </div>
+            
+            
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Regresión lineal</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Regresión lineal
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regression-performance">
+     Regression performance
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sobreajuste">
+     Sobreajuste
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cross-validation-o-validacion-cruzada">
+     Cross Validation o Validación Cruzada
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regularized-regression-o-regresion-regularizada">
+   Regularized regression o regresión regularizada
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regresion-lasso-para-importancia-de-caracteristicas">
+   Regresión Lasso para importancia de caracteristicas
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+            <article class="bd-article" role="main">
+              
+  <p><a href="https://colab.research.google.com/github/mayait/ClaseMachineLearning/blob/main/SupervisedLearning/Classification/LinearRegressionAI.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p>
+<section class="tex2jax_ignore mathjax_ignore" id="regresion-lineal">
+<h1>Regresión lineal<a class="headerlink" href="#regresion-lineal" title="Permalink to this heading">#</a></h1>
+<p>En este ejercicio se trabajará con un conjunto de datos llamado “sales_df”, el cual contiene información sobre el gasto en campañas publicitarias en diferentes tipos de medios y el monto de ventas generadas para cada campaña. El conjunto de datos ya se encuentra cargado.</p>
+<p>Se utilizará el gasto en publicidad en el medio “radio” como característica (feature) para predecir los valores de ventas. Antes de realizar cualquier predicción, es necesario crear los arreglos de características y objetivos, y darles el formato correcto para su uso en scikit-learn.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>tv</p></th>
+<th class="head"><p>radio</p></th>
+<th class="head"><p>social_media</p></th>
+<th class="head"><p>sales</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>13000.0</p></td>
+<td><p>9237.76</p></td>
+<td><p>2409.57</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>41000.0</p></td>
+<td><p>15886.45</p></td>
+<td><p>2913.41</p></td>
+</tr>
+</tbody>
+</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget https://raw.githubusercontent.com/mayait/ClaseAnalisisDatos/main/machine_learning/datasets/advertising_and_sales_clean.csv
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2023-03-02 11:56:09--  https://raw.githubusercontent.com/mayait/ClaseAnalisisDatos/main/machine_learning/datasets/advertising_and_sales_clean.csv
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.110.133, 185.199.108.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>connected.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HTTP request sent, awaiting response... 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200 OK
+Length: 179924 (176K) [text/plain]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Saving to: &#39;advertising_and_sales_clean.csv.2&#39;
+
+
+          advertisi   0%[                    ]       0  --.-KB/s               
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>advertising_and_sal 100%[===================&gt;] 175.71K   975KB/s    in 0.2s    
+
+2023-03-02 11:56:10 (975 KB/s) - &#39;advertising_and_sales_clean.csv.2&#39; saved [179924/179924]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sales_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;advertising_and_sales_clean.csv&quot;</span><span class="p">)</span>
+<span class="n">sales_df</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tv</th>
+      <th>radio</th>
+      <th>social_media</th>
+      <th>influencer</th>
+      <th>sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1010</th>
+      <td>71000.0</td>
+      <td>18532.16</td>
+      <td>2698.18</td>
+      <td>Nano</td>
+      <td>246810.98</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">- Create X, an array of the values from the sales_df DataFrame&#39;s &quot;radio&quot; column.</span>
+<span class="sd">- Create y, an array of the values from the sales_df DataFrame&#39;s &quot;sales&quot; column.</span>
+<span class="sd">- Reshape X into a two-dimensional NumPy array.</span>
+<span class="sd">- Print the shape of X and y.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="c1"># Create X from the radio column&#39;s values</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">____</span>
+
+<span class="c1"># Create y from the sales column&#39;s values</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">____</span>
+
+<span class="c1"># Reshape X</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">____</span>
+
+<span class="c1"># Check the shape of the features and targets</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">____</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [4],</span> in <span class="ni">&lt;cell line: 9&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="sd">&#39;&#39;&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="sd"> - Create X, an array of the values from the sales_df DataFrame&#39;s &quot;radio&quot; column.</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> - Create y, an array of the values from the sales_df DataFrame&#39;s &quot;sales&quot; column.</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="sd"> - Reshape X into a two-dimensional NumPy array.</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span><span class="sd"> - Print the shape of X and y.</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span><span class="sd"> &#39;&#39;&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1"># Create X from the radio column&#39;s values</span>
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">X</span> <span class="o">=</span> <span class="n">____</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="c1"># Create y from the sales column&#39;s values</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">y</span> <span class="o">=</span> <span class="n">____</span>
+
+<span class="ne">NameError</span>: name &#39;____&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p><em>Tenga en cuenta que se utiliza el método reshape para transformar el arreglo unidimensional X en un arreglo bidimensional. El argumento -1, 1 significa que se utilizará solo una columna e inferir automáticamente el número de filas para preservar el número original de elementos en el arreglo.</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Building a linear regression model</strong></p>
+<p>Now you have created your feature and target arrays, you will train a linear regression model on all feature and target values.</p>
+<ul class="simple">
+<li><p>LinearRegression is imported from the linear_model module of the scikit-learn library.</p></li>
+<li><p>The LinearRegression class is then instantiated to create a linear regression model.</p></li>
+<li><p>The fit method is used to fit the model to the data, which is represented by the arrays X and y.</p></li>
+<li><p>Finally, the predict method is used to make predictions using the fitted model.</p></li>
+<li><p>The first five predictions are printed for inspection.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">sales_df</span><span class="p">[</span><span class="s2">&quot;sales&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sales_df</span><span class="p">[</span><span class="s2">&quot;radio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import LinearRegression.</span>
+<span class="c1"># Instantiate a linear regression model.</span>
+<span class="c1"># Predict sales values using X, storing as predictions</span>
+
+<span class="c1"># Import LinearRegression</span>
+<span class="kn">from</span> <span class="nn">____.____</span> <span class="kn">import</span> <span class="n">____</span>
+
+<span class="c1"># Create the model</span>
+<span class="n">reg</span> <span class="o">=</span> <span class="n">____</span><span class="p">()</span>
+
+<span class="c1"># Fit the model to the data</span>
+<span class="n">____</span>
+
+<span class="c1"># Make predictions</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">____</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Visualizing a linear regression model</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Import matplotlib.pyplot as plt.</span>
+<span class="sd">Create a scatter plot visualizing y against X, with observations in blue.</span>
+<span class="sd">Draw a red line plot displaying the predictions against X.</span>
+<span class="sd">Display the plot.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1"># Import matplotlib.pyplot</span>
+<span class="kn">import</span> <span class="nn">____.____</span> <span class="k">as</span> <span class="nn">____</span>
+
+<span class="c1"># Create scatter plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;____&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create line plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;____&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Radio Expenditure ($)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Sales ($)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Display the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">____</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Create X, an array containing values of all features in sales_df, and y, containing all values from the &quot;sales&quot; column.</span>
+<span class="sd">Instantiate a linear regression model.</span>
+<span class="sd">Fit the model to the training data.</span>
+<span class="sd">Create y_pred, making predictions for sales using the test features</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">sklearn._______</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="c1"># Create X and y arrays</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">sales_df</span><span class="o">.</span><span class="n">____</span><span class="p">(</span><span class="s2">&quot;____&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">____</span><span class="p">)</span><span class="o">.</span><span class="n">____</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sales_df</span><span class="p">[</span><span class="s2">&quot;____&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">____</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">________</span>
+
+<span class="c1"># Instantiate the model</span>
+<span class="n">reg</span> <span class="o">=</span> <span class="n">____</span>
+
+<span class="c1"># Fit the model to the data</span>
+<span class="n">____</span>
+
+<span class="c1"># Make predictions</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">____</span><span class="p">(</span><span class="n">____</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Predictions: </span><span class="si">{}</span><span class="s2">, Actual Values: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">y_test</span><span class="p">[:</span><span class="mi">2</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="regression-performance">
+<h2>Regression performance<a class="headerlink" href="#regression-performance" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Import mean_squared_error.</span>
+<span class="sd">Calculate the model&#39;s R-squared score by passing the test feature values and the test target values to an appropriate method.</span>
+<span class="sd">Calculate the model&#39;s root mean squared error using y_test and y_pred.</span>
+<span class="sd">Print r_squared and rmse.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1"># Import mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">____.____</span> <span class="kn">import</span> <span class="n">____</span>
+
+<span class="c1"># Compute R-squared</span>
+<span class="n">r_squared</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">____</span><span class="p">(</span><span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">)</span>
+
+<span class="c1"># Compute RMSE</span>
+<span class="n">rmse</span> <span class="o">=</span> <span class="n">____</span><span class="p">(</span><span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">,</span> <span class="n">squared</span><span class="o">=</span><span class="n">____</span><span class="p">)</span>
+
+<span class="c1"># Print the metrics</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R^2: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">____</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RMSE: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">____</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Wow, the features explain 99.9% of the variance in sales values! Looks like this company’s advertising strategy is working well!</p>
+</section>
+<section id="sobreajuste">
+<h2>Sobreajuste<a class="headerlink" href="#sobreajuste" title="Permalink to this heading">#</a></h2>
+<p>El sobreajuste en la regresión lineal ocurre cuando el modelo es demasiado complejo y captura el ruido en los datos de entrenamiento, en lugar de las relaciones subyacentes entre las variables independientes y la variable dependiente. Cuando un modelo de regresión lineal sobreajusta, se ajusta demasiado bien a los datos de entrenamiento y tiene un mal rendimiento en datos nuevos y no vistos. Esto se debe a que el modelo ha aprendido el ruido en los datos de entrenamiento y no puede generalizar a nuevos datos que no tienen el mismo ruido.</p>
+<p>El sobreajuste puede ocurrir cuando el modelo tiene demasiadas variables, las variables están altamente correlacionadas o el modelo es demasiado flexible (es decir, tiene demasiados grados de libertad). Una forma de prevenir el sobreajuste en la regresión lineal es utilizar técnicas de regularización, como la regresión de Ridge o Lasso. Estas técnicas agregan un término de penalización a la función de pérdida, lo que encoge los coeficientes de las variables independientes hacia cero, reduce la complejidad del modelo y previene el sobreajuste.</p>
+</section>
+<section id="cross-validation-o-validacion-cruzada">
+<h2>Cross Validation o Validación Cruzada<a class="headerlink" href="#cross-validation-o-validacion-cruzada" title="Permalink to this heading">#</a></h2>
+<p>La validación cruzada K-Fold es una técnica utilizada para evaluar el rendimiento de un modelo de regresión. En la validación cruzada K-Fold, los datos se dividen en K pliegues o subconjuntos. La validación cruzada implica dividir los datos en conjuntos de entrenamiento y validación, entrenar el modelo en el conjunto de entrenamiento y evaluar su rendimiento en el conjunto de validación. Al repetir este proceso con diferentes divisiones de los datos, podemos obtener una mejor estimación del rendimiento del modelo en datos no vistos y prevenir el sobreajuste.</p>
+<p><strong>La razón principal para usar la validación cruzada K-Fold en la regresión es reducir las posibilidades de sobreajuste.</strong> El sobreajuste ocurre cuando un modelo es demasiado complejo para los datos y comienza a capturar el ruido en los datos en lugar de las relaciones subyacentes. Al entrenar el modelo en diferentes pliegues de los datos y evaluar su rendimiento, podemos obtener una mejor estimación de qué tan bien el modelo se generalizará a datos no vistos. Esto nos ayuda a evitar el sobreajuste y mejorar la robustez de nuestro modelo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import KFold and cross_val_score.</span>
+<span class="c1"># Create kf by calling KFold(), setting the number of splits to six, shuffle to True, and setting a seed of 5.</span>
+<span class="c1"># Perform cross-validation using reg on X and y, passing kf to cv.</span>
+<span class="c1"># Print the cv_scores.</span>
+
+<span class="c1"># Import the necessary modules</span>
+<span class="kn">from</span> <span class="nn">____.____</span> <span class="kn">import</span> <span class="n">____</span><span class="p">,</span> <span class="n">____</span>
+
+<span class="c1"># Create a KFold object</span>
+<span class="n">kf</span> <span class="o">=</span> <span class="n">____</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">____</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">____</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">____</span><span class="p">)</span>
+
+<span class="n">reg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+
+<span class="c1"># Compute 6-fold cross-validation scores</span>
+<span class="n">cv_scores</span> <span class="o">=</span> <span class="n">____</span><span class="p">(</span><span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">____</span><span class="p">)</span>
+
+<span class="c1"># Print scores</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">____</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate and print the mean of the results.</span>
+<span class="c1"># Calculate and print the standard deviation of cv_results.</span>
+<span class="c1"># Display the 95% confidence interval for your results using np.quantile().</span>
+
+<span class="c1"># Print the mean</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">____</span><span class="p">(</span><span class="n">____</span><span class="p">))</span>
+
+<span class="c1"># Print the standard deviation</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">____</span><span class="p">(</span><span class="n">____</span><span class="p">))</span>
+
+<span class="c1"># Print the 95% confidence interval</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">____</span><span class="p">(</span><span class="n">____</span><span class="p">,</span> <span class="p">[</span><span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="regularized-regression-o-regresion-regularizada">
+<h1>Regularized regression o regresión regularizada<a class="headerlink" href="#regularized-regression-o-regresion-regularizada" title="Permalink to this heading">#</a></h1>
+<p>La regresión regularizada es una técnica utilizada para prevenir el sobreajuste en modelos de regresión lineal. En lugar de simplemente minimizar la suma de los errores cuadráticos, la regresión regularizada también penaliza los coeficientes de las características de entrada, lo que limita su magnitud.
+Esto se hace mediante la adición de un término de penalización a la función de pérdida que se minimiza. La fuerza de la penalización está controlada por un parámetro de regularización, que se ajusta para lograr un buen equilibrio entre ajuste y complejidad del modelo.</p>
+<p>Hay dos tipos principales de regresión regularizada: la <strong>regresión de Lasso y la regresión de Ridge</strong>. La regresión de Lasso aplica una penalización alpha que conduce a la selección automática de características, mientras que la regresión de Ridge aplica una penalización alpha que reduce los coeficientes pero no los reduce a cero.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">sales_df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;sales&quot;</span><span class="p">,</span><span class="s2">&quot;influencer&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sales_df</span><span class="p">[</span><span class="s2">&quot;sales&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import Ridge.</span>
+<span class="c1"># Instantiate Ridge, setting alpha equal to alpha.</span>
+<span class="c1"># Fit the model to the training data.</span>
+<span class="c1"># Calculate the score for each iteration of ridge.</span>
+
+<span class="c1"># Import Ridge</span>
+<span class="kn">from</span> <span class="nn">____.____</span> <span class="kn">import</span> <span class="n">____</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+
+<span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">]</span>
+<span class="n">ridge_scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="n">alphas</span><span class="p">:</span>
+  
+  <span class="c1"># Create a Ridge regression model</span>
+  <span class="n">ridge</span> <span class="o">=</span> <span class="n">____</span>
+  
+  <span class="c1"># Fit the data</span>
+  <span class="n">____</span>
+  
+  <span class="c1"># Obtain R-squared</span>
+  <span class="n">score</span> <span class="o">=</span> <span class="n">____</span>
+  <span class="n">ridge_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ridge_scores</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="regresion-lasso-para-importancia-de-caracteristicas">
+<h1>Regresión Lasso para importancia de caracteristicas<a class="headerlink" href="#regresion-lasso-para-importancia-de-caracteristicas" title="Permalink to this heading">#</a></h1>
+<p>Para identificar las características importantes en un conjunto de datos, se puede usar la regresión de Lasso. En esta actividad, se ajusta un modelo de regresión de Lasso a los datos de ventas y se trazarán los coeficientes del modelo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import Lasso from sklearn.linear_model.</span>
+<span class="c1"># Instantiate a Lasso regressor with an alpha of 0.3.</span>
+<span class="c1"># Fit the model to the data.</span>
+<span class="c1"># Compute the model&#39;s coefficients, storing as lasso_coef.</span>
+
+<span class="c1"># Import Lasso</span>
+<span class="kn">from</span> <span class="nn">____.____</span> <span class="kn">import</span> <span class="n">____</span>
+
+<span class="c1"># Instantiate a lasso regression model</span>
+<span class="n">lasso</span> <span class="o">=</span> <span class="n">____</span>
+
+<span class="c1"># Fit the model to the data</span>
+<span class="n">____</span>
+
+<span class="c1"># Compute and print the coefficients</span>
+<span class="n">lasso_coef</span> <span class="o">=</span> <span class="n">____</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lasso_coef</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="s1">&#39;tv&#39;</span><span class="p">,</span> <span class="s1">&#39;radio&#39;</span><span class="p">,</span> <span class="s1">&#39;social_media&#39;</span><span class="p">],</span> <span class="n">lasso_coef</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./SupervisedLearning/Classification"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+            </article>
+            
+
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Regresión lineal
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regression-performance">
+     Regression performance
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sobreajuste">
+     Sobreajuste
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cross-validation-o-validacion-cruzada">
+     Cross Validation o Validación Cruzada
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regularized-regression-o-regresion-regularizada">
+   Regularized regression o regresión regularizada
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regresion-lasso-para-importancia-de-caracteristicas">
+   Regresión Lasso para importancia de caracteristicas
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+<p class="copyright">
+
+    &copy; Copyright 2022.<br>
+
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+Last updated on None.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </div>
+        </footer>
+        
+
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  </body>
+</html>
