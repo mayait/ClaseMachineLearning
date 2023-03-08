@@ -5,8 +5,6 @@ format: jb-book
 root: intro
 chapters:
 - file: markdown
-- file: notebooks
-- file: markdown-notebooks
 - caption: Supervised Learning HA
 chapters:
-- file: SupervisedLearning/Classification/DecisionTreeTrainingTest.ipynb
+- file: notebooks/Logistic_regression_model_and_ROC.ipynb
